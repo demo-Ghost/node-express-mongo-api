@@ -3,6 +3,8 @@ import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 
+import models from './models';
+
 // config vars
 const port = process.env.PORT || 8080;
 
@@ -13,6 +15,14 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+// custom middleware
+app.use((req, res, next) => {
+  req.context = {
+    models,
+  };
+  next();
+});
 
 // routes
 app.get('/users', (req, res) => {
