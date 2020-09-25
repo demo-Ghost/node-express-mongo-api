@@ -4,15 +4,15 @@ import cors from 'cors';
 import express from 'express';
 
 // config vars
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 // initialize
 const app = express();
 
-// middleware
-app.use(cors());
+// app-level middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // routes
 app.get('/users', (req, res) => {
